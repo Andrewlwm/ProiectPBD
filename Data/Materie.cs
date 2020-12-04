@@ -14,9 +14,5 @@ namespace ProiectPbd.Data
 
         [Required]
         public int AnStudiu { get; set; }
-
-        [Reference]
-        public int MyProperty { get; set; }
-
     }
 }

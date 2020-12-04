@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Tuple<Nota, Student, Materie>>
+@{
+    ViewData["Title"] = "Raport";
+}
+
+
+@if (Model == null)
+{
+    <div>
+        <h4>Rapoarte</h4>
+        <hr />
+        <p> <a href="@Url.Action("Raport","Home",new { type = 1 })"> ->Toți studenții cu anii de studiu</a></p>
+        <p> <a href="@Url.Action("Raport","Home",new { type = 2 })"> ->Toți studenții cu notele finale la materiile promovate</a></p>
+    </div>
+}
+else if (Model.FirstOrDefault().Item1 == null)
+{
+    <h4>Toți studenții cu anii de studiu</h4>
+    <hr />
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nume</th>
+                <th scope="col">Prenume</th>
+                <th scope="col">An studiu</th>
+                <th scope="col">Legitimație</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Item2.Nume</td>
+                    <td>@item.Item2.Prenume</td>
+                    <td>@ViewBag.AniStudiu[i]</td>
+                    <td>@item.Item2.NrLegitimatie</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4>Toți studenții cu notele finale la materiile promovate</h4>
+    <hr />
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nume</th>
+                <th scope="col">Prenume</th>
+                <th scope="col">Legitimație</th>
+                <th scope="col">Disciplina</th>
+                <th scope="col">Nota</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Item2.Nume</td>
+                    <td>@item.Item2.Prenume</td>
+                    <td>@item.Item2.NrLegitimatie</td>
+                    <td>@item.Item3.NumeDisciplina</td>
+                    <td>@item.Item1.NotaObtinuta</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+

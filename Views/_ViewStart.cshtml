@@ -1,0 +1,9 @@
+﻿@{
+    Layout = "_Layout";
+}
+@using ServiceStack.OrmLite;
+@using System.Data;
+@inject IDbConnection Database 
+@{
+    ViewBag.Materii = await Database.SelectAsync<Materie>();
+}

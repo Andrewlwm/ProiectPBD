@@ -1,0 +1,69 @@
+﻿@model List<ProiectPbd.Models.CatalogModel>;
+
+@{
+    ViewData["Title"] = "Catalog";
+}
+<style>
+    .btn-width-200 > a {
+        width: 200px;
+    }
+</style>
+
+<div class="text-center btn-width-200">
+    <a class="btn btn-outline-primary" asp-action="AdaugareNota">Adaugă notă</a>
+    <a class="btn btn-outline-primary" asp-action="Nepromovati">Afișare nepromovați</a>
+</div>
+
+<div class="text-center">
+    @if (Model != null)
+    {
+
+        <h4>Catalog</h4>
+        <hr />
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nume</th>
+                    <th scope="col">Prenume</th>
+                    <th scope="col">Legitimație</th>
+                    <th scope="col">Media generală</th>
+                    @for (int i = 1; i <= Model.FirstOrDefault().NrAni; i++)
+                    {
+                        <th scope="col">Media pe anul @i</th>
+
+                    }
+                    <th scope="col">Disciplina</th>
+                    <th scope="col">An studiu</th>
+                    <th scope="col">Nr. prezentare</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Nota</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Student.Nume</td>
+                        <td>@item.Student.Prenume</td>
+                        <td>@item.Student.NrLegitimatie</td>
+                        <td>@item.Student.MedieGenerala</td>
+                        @for (int i = 0; i < Model.FirstOrDefault().NrAni; i++)
+                        {
+                            <td>@item.Medii[i]</td>
+                        }
+                        <td>@item.Materie.NumeDisciplina</td>
+                        <td>@item.Materie.AnStudiu</td>
+                        <td>@item.Nota.NrPrezentare</td>
+                        <td>@item.Nota.DataPrezentarii.ToShortDateString()</td>
+                        <td>@item.Nota.NotaObtinuta</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <h1>No entires!</h1>
+    }
+</div>

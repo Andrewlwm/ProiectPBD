@@ -1,0 +1,83 @@
+﻿@model double
+@using ProiectPbd.DataModels
+@{
+    ViewData["Title"] = "Procentaje";
+}
+
+<h4>Procentaje</h4>
+<div class="row justify-content-center text-center">
+    <div class="col-md-6">
+        <hr />
+        <div class="form-group">
+
+            <p>Promovabilitatea materiei</p>
+            <select id="materie" class="form-control">
+                <option selected disabled>Alegeți materia ...</option>
+                @foreach (var item in ViewBag.Materii as IEnumerable<Materie>)
+                {
+                    <option value="@item.NumeDisciplina">"@item.NumeDisciplina"</option>
+                }
+            </select>
+            <button class="btn btn-outline-primary m-2" onclick="location.href = '@Url.Action("Procentaje", "Home")?type=1&materie='+$('#materie').val()">Afișare promovabilitate</button>
+        </div>
+        <hr />
+
+        @if (Model != -1)
+        {
+            <p>Promovabilitatea</p>
+            <h1>@Model.ToString("P")</h1>
+            <hr />
+        }
+
+        <a class="btn btn-outline-primary m2" href="@Url.Action("Procentaje","Home", new { type = 2 })">Studenti cu materii nepromovate in 2 ani consecutivi</a>
+
+        @if (ViewBag.StudentiAn != null)
+        {
+            <table class="table table-striped mt-2">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nume</th>
+                        <th scope="col">Prenume</th>
+                        <th scope="col">Legitimație</th>
+                        <th scope="col">Ani</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.StudentiAn as List<StudentAni>)
+                    {
+                        <tr>
+                            <td>@item.student.Nume</td>
+                            <td>@item.student.Prenume</td>
+                            <td>@item.student.NrLegitimatie</td>
+                            <td>@item.ani[0], @item.ani[1]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        <hr />
+        <a class="btn btn-outline-primary m2" href="@Url.Action("Procentaje","Home", new { type = 3 })">Studenti cu materii nepromovate in 2 ani consecutivi</a>
+        @if (ViewBag.StudentProm != null)
+        {
+            <table class="table table-striped mt-2">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nume</th>
+                        <th scope="col">Prenume</th>
+                        <th scope="col">Nr. prezentari</th>
+                        <th scope="col">Promovabilitate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@ViewBag.StudentProm.student.Nume</td>
+                        <td>@ViewBag.StudentProm.student.Prenume</td>
+                        <td>@ViewBag.StudentProm.prezentari</td>
+                        <td>@ViewBag.StudentProm.prom.ToString("P")</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+
+    </div>
+</div>

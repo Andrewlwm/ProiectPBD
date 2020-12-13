@@ -31,8 +31,8 @@ namespace ProiectPbd.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //await _repo.createTablesAsync();
-            //await _repo.populateTablesAsync();
+            await _repo.createTablesAsync();
+            await _repo.populateTablesAsync();
             return RedirectToAction("Catalog");
         }
 

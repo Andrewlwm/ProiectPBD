@@ -381,7 +381,7 @@ namespace ProiectPbd.Repositories
                     var r = await Database.SelectMultiAsync<Nota, Student, Materie>(q);
                     if (r.Count() != 0) promovate++;
                 }
-            var total = await Database.ScalarAsync<Nota, int>(x => Sql.CountDistinct(x.Id), x => x.StudentId == studentId);
+            var total = await Database.ScalarAsync<Nota, int>(x => Sql.CountDistinct(x.MaterieId), x => x.StudentId == studentId);
             result.prom = promovate / (double)total;
 
             return result;

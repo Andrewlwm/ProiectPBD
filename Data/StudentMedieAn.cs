@@ -17,7 +17,7 @@ namespace ProiectPbd.Data
 
         [ForeignKey(typeof(Student), OnDelete = "CASCADE", OnUpdate = "CASCADE")]
         [Required]
-        public int StudentId { get; set; } 
+        public int StudentId { get; set; }
 
         [Required]
         [CheckConstraint("Medie BETWEEN 1 AND 10")]
